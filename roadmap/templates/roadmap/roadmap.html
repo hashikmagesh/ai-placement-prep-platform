@@ -1,0 +1,89 @@
+{% extends 'roadmap/base.html' %}
+
+{% block title %}{{ domain }} - {{ company }} Roadmap{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="roadmap-header">
+        <h2 class="page-title">{{ domain }} Preparation for {{ company }}</h2>
+        
+        <div class="progress-section">
+            <div class="progress-info">
+                <span class="progress-text">Progress: {{ completed_count }}/{{ total_topics }} topics completed</span>
+                <span class="progress-percentage">{{ progress_percentage }}%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: {{ progress_percentage }}%"></div>
+            </div>
+        </div>
+    </div>
+    
+    {% if topics %}
+    <div class="topics-container">
+        {% for topic in topics %}
+        <div class="topic-card" id="topic-{{ topic.id }}">
+            <div class="topic-content">
+                <div class="topic-header">
+                    <h3 class="topic-title">{{ forloop.counter }}. {{ topic.topic }}</h3>
+                    <span class="topic-duration">⏱️ {{ topic.duration }}</span>
+                </div>
+            </div>
+            <form method="POST" class="complete-form">
+                {% csrf_token %}
+                <input type="hidden" name="topic_id" value="{{ topic.id }}">
+                <button type="submit" class="complete-btn">
+                    ✓ Mark Complete
+                </button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="completion-message">
+        <div class="celebration">🎉</div>
+        <h2>Congratulations!</h2>
+        <p>You've completed all topics for {{ domain }} at {{ company }}!</p>
+        <a href="{% url 'reset' %}" class="restart-btn">Start New Preparation</a>
+    </div>
+    {% endif %}
+</div>
+<div class="next-page-btn-container" style="text-align:center; margin-top: 30px;">
+    <a href="" class="next-page-btn" style="
+        display: inline-block;
+        padding: 16px 32px;
+        font-size: 1.2rem;
+        color: #fff;
+        background: linear-gradient(90deg, #00c6ff 0%, #0072ff 100%);
+        border: none;
+        border-radius: 50px;
+        box-shadow: 0 8px 24px rgba(0,114,255,0.2);
+        cursor: pointer;
+        text-decoration: none;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.2s, box-shadow 0.2s;
+        animation: bounce 1.2s infinite;
+    ">
+        <span style="position:relative; z-index:2;">Next Page &rarr;</span>
+        <span style="
+            position: absolute;
+            left: 0; top: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+            z-index:1;
+            pointer-events:none;
+        "></span>
+    </a>
+</div>
+<style>
+@keyframes bounce {
+    0%, 100% { transform: translateY(0);}
+    50% { transform: translateY(-10px);}
+}
+.next-page-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 32px rgba(0,114,255,0.3);
+}
+</style>
+{% load static %}
+<script src="{% static 'roadmap/script.js' %}"></script>
+{% endblock %}
