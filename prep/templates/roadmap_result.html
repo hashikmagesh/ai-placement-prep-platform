@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+.roadmap-container {
+    max-width: 900px;
+    margin: 50px auto;
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.roadmap-box {
+    white-space: pre-wrap;
+    line-height: 1.7;
+}
+
+.actions {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.btn {
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 6px;
+    text-decoration: none;
+    background: #007bff;
+    color: white;
+}
+
+.btn-print {
+    background: #333;
+}
+</style>
+
+<div class="roadmap-container">
+
+    <h2>Your Personalized Roadmap</h2>
+
+    <div class="roadmap-box">
+        {{ roadmap }}
+    </div>
+
+    <div class="actions">
+        <button onclick="window.print()" class="btn btn-print">Print</button>
+
+        <a href="{% url 'prep:home' %}" class="btn">
+            Go to Home →
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}

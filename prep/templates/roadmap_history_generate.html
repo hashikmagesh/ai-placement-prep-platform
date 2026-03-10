@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+
+.practice-wrapper {
+    max-width: 1100px;
+    margin: 70px auto;
+    padding: 0 20px;
+}
+
+.practice-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.practice-header h1 {
+    font-size: 36px;
+    font-weight: 700;
+    color: #1f2e44;
+}
+
+.practice-header p {
+    color: #6c757d;
+    font-size: 16px;
+    margin-top: 12px;
+}
+
+.practice-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 35px;
+}
+
+.practice-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 40px 30px;
+    text-decoration: none;
+    color: #1f2e44;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+    border: 1px solid #f3f4f6;
+}
+
+.practice-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+    border-color: #6366f1;
+}
+
+.practice-icon {
+    font-size: 46px;
+    margin-bottom: 22px;
+}
+
+.practice-card h3 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.practice-card p {
+    font-size: 15px;
+    color: #555;
+    line-height: 1.7;
+}
+
+.practice-btn {
+    margin-top: 20px;
+    display: inline-block;
+    font-size: 14px;
+    color: #6366f1;
+    font-weight: 600;
+}
+
+.practice-card:hover .practice-btn {
+    text-decoration: underline;
+}
+
+</style>
+
+<div class="practice-wrapper">
+
+    <div class="practice-header">
+        <h1>🚀 Roadmap Center</h1>
+        <p>Plan your preparation journey and track your previous roadmap strategies.</p>
+    </div>
+
+    <div class="practice-grid">
+
+        <!-- Generate New Roadmap -->
+        <a href="{% url 'prep:roadmap' %}" class="practice-card">
+            <div class="practice-icon">🗺️</div>
+            <h3>Generate New Roadmap</h3>
+            <p>Create a personalized placement preparation roadmap based on your domain, target company and timeline.</p>
+            <span class="practice-btn">Create Roadmap →</span>
+        </a>
+
+        <!-- View History -->
+        <a href="{% url 'prep:my_roadmaps' %}" class="practice-card">
+            <div class="practice-icon">📂</div>
+            <h3>My Roadmap History</h3>
+            <p>Access, review, or manage your previously generated roadmaps anytime.</p>
+            <span class="practice-btn">View History →</span>
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div style="max-width: 800px; margin: auto; padding: 20px;">
+
+    <h2>Aptitude Practice</h2>
+    <p>Page {{ page }}</p>
+
+    <hr>
+
+    {% for question in questions %}
+        <div style="margin-bottom: 25px; padding: 15px; border: 1px solid #ddd; border-radius: 8px;">
+            
+            <p><strong>Question {{ forloop.counter }}:</strong></p>
+            
+            <p style="white-space: pre-line;">
+                {{ question.question_text }}
+            </p>
+
+            <!-- Hidden Answer -->
+            <div id="answer-{{ forloop.counter }}" style="display: none; margin-top: 10px;">
+                <strong>Answer:</strong> {{ question.answer }}
+            </div>
+
+            <button onclick="toggleAnswer({{ forloop.counter }})" 
+                    style="margin-top:10px;">
+                Show Answer
+            </button>
+
+        </div>
+    {% endfor %}
+
+    <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+
+        {% if page > 1 %}
+            <a href="?page={{ page|add:-1 }}">
+                <button>Previous</button>
+            </a>
+        {% endif %}
+
+        <a href="?page={{ page|add:1 }}">
+            <button>Next</button>
+        </a>
+
+    </div>
+
+</div>
+
+<script>
+function toggleAnswer(id) {
+    const answerDiv = document.getElementById("answer-" + id);
+    
+    if (answerDiv.style.display === "none") {
+        answerDiv.style.display = "block";
+    } else {
+        answerDiv.style.display = "none";
+    }
+}
+</script>
+
+{% endblock %}

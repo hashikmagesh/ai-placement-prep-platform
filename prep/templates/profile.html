@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    .profile-wrapper {
+        display: flex;
+        min-height: 85vh;
+    }
+
+    /* LEFT SIDEBAR */
+    .profile-sidebar {
+        width: 300px;
+        background-color: #1f2e44;
+        color: white;
+        padding: 30px 20px;
+    }
+
+    .profile-sidebar img {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 3px solid #2d6cdf;
+    }
+
+    .profile-sidebar h4 {
+        margin-top: 15px;
+    }
+
+    .profile-sidebar a {
+        color: #9ecbff;
+        text-decoration: none;
+        display: block;
+        margin: 8px 0;
+    }
+
+    .profile-sidebar a:hover {
+        text-decoration: underline;
+    }
+
+    /* MAIN CONTENT */
+    .profile-main {
+        flex: 1;
+        padding: 40px;
+        background-color: #f4f6f9;
+    }
+
+    .card-box {
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        margin-bottom: 25px;
+    }
+
+    .progress {
+        height: 20px;
+    }
+
+    .progress-bar {
+        background-color: #2d6cdf;
+    }
+
+    .btn-custom {
+        background-color: #2d6cdf;
+        color: white;
+        border: none;
+        margin-top: 10px;
+    }
+
+    .btn-custom:hover {
+        background-color: #1f57c3;
+    }
+</style>
+
+<div class="profile-wrapper">
+
+    <!-- SIDEBAR -->
+    <div class="profile-sidebar text-center">
+
+        {% if profile.profile_image %}
+            <img src="{{ profile.profile_image.url }}">
+        {% else %}
+            <img src="https://via.placeholder.com/120">
+        {% endif %}
+
+        <h4>{{ request.user.username }}</h4>
+
+        <hr style="background-color: white;">
+
+        <p>🔥 Current Streak: {{ streak }} days</p>
+        <p>🏆 Longest Streak: {{ longest_streak }} days</p>
+
+        <hr style="background-color: white;">
+
+        <h5>🎯 Career Goal</h5>
+
+        <p>
+        <strong>Domain:</strong><br>
+        {{ profile.target_domain|default:"Not selected" }}
+        </p>
+
+        <p>
+        <strong>Target Company:</strong><br>
+        {{ profile.target_company|default:"Not selected" }}
+        </p>
+
+        <hr style="background-color: white;">
+
+        <a href="{% url 'prep:edit_profile' %}">Edit Profile</a>
+        <a href="{% url 'prep:dashboard' %}">Dashboard</a>
+        <a href="{% url 'prep:logout' %}" onclick="return confirmLogout()">Logout</a>
+
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="profile-main">
+
+        <div class="card-box">
+            <h4>📊 Profile Completion: {{ completion }}%</h4>
+
+            <div class="progress mb-3">
+                <div class="progress-bar"
+                     role="progressbar"
+                     style="width: {{ completion }}%;">
+                </div>
+            </div>
+        </div>
+
+        <div class="card-box">
+            <h4>🎓 Academic Details</h4>
+            <p><strong>College:</strong> {{ profile.college_name }}</p>
+            <p><strong>Branch:</strong> {{ profile.branch }}</p>
+            <p><strong>Graduation Year:</strong> {{ profile.graduation_year }}</p>
+        </div>
+
+        <div class="card-box">
+            <h4>🔗 Social Links</h4>
+
+            {% if profile.linkedin_url %}
+                <p><a href="{{ profile.linkedin_url }}" target="_blank">LinkedIn</a></p>
+            {% endif %}
+
+            {% if profile.github_url %}
+                <p><a href="{{ profile.github_url }}" target="_blank">GitHub</a></p>
+            {% endif %}
+
+            {% if profile.portfolio_url %}
+                <p><a href="{{ profile.portfolio_url }}" target="_blank">Portfolio</a></p>
+            {% endif %}
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

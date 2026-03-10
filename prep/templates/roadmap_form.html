@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+body {
+    background: linear-gradient(135deg, #eef2ff, #f8fafc);
+}
+
+.page-container {
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.page-header {
+    margin-bottom: 20px;
+}
+
+.back-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background: #6366f1;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.back-btn:hover {
+    background: #4f46e5;
+}
+
+.roadmap-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.roadmap-card {
+    width: 500px;
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+}
+
+.roadmap-title {
+    font-size: 26px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.roadmap-subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 14px;
+}
+
+label {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+select {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+select:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.2);
+}
+
+.generate-btn {
+    width: 100%;
+    padding: 14px;
+    background: #6366f1;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.generate-btn:hover {
+    background: #4f46e5;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(79,70,229,0.3);
+}
+
+.loading-text {
+    text-align: center;
+    margin-top: 15px;
+    color: #16a34a;
+    font-weight: 600;
+    display: none;
+}
+</style>
+
+<div class="page-container">
+
+    <div class="page-header">
+        <a href="{% url 'prep:roadmap_history_generate' %}" class="back-btn">⬅ Back</a>
+    </div>
+
+    <div class="roadmap-wrapper">
+        <div class="roadmap-card">
+
+            <div class="roadmap-title">
+                🚀 Generate Your AI Roadmap
+            </div>
+
+            <div class="roadmap-subtitle">
+                Get a structured placement preparation plan tailored to your dream company.
+            </div>
+
+            <form method="POST" onsubmit="showLoading()" action="{% url 'prep:roadmap' %}">
+                {% csrf_token %}
+
+                <label>Select Domain</label>
+                <select name="domain" required>
+                    <option value="">-- Choose Domain --</option>
+                    <option>Web Development</option>
+                    <option>Data Analytics</option>
+                    <option>Artificial Intelligence</option>
+                    <option>Cyber Security</option>
+                    <option>Cloud Computing</option>
+                </select>
+
+                <label>Select Company</label>
+                <select name="company" required>
+                    <option value="">-- Choose Company --</option>
+                    <option>TCS</option>
+                    <option>Infosys</option>
+                    <option>Wipro</option>
+                    <option>Accenture</option>
+                    <option>Google</option>
+                </select>
+
+                <label>Select Timeline</label>
+                <select name="timeline">
+                    <option value="1 month">1 Month</option>
+                    <option value="3 months" selected>3 Months</option>
+                    <option value="6 months">6 Months</option>
+                </select>
+
+                <button type="submit" class="generate-btn">
+                    Generate Roadmap
+                </button>
+
+                <div id="loading" class="loading-text">
+                    Generating your personalized roadmap... ⏳
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+function showLoading() {
+    document.getElementById("loading").style.display = "block";
+}
+</script>
+
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+
+.resume-wrapper{
+max-width:900px;
+margin:60px auto;
+background:white;
+padding:40px;
+border-radius:12px;
+box-shadow:0 6px 18px rgba(0,0,0,0.08);
+}
+
+.resume-wrapper h2{
+margin-bottom:20px;
+}
+
+.form-group{
+margin-bottom:20px;
+}
+
+.form-group label{
+font-weight:500;
+display:block;
+margin-bottom:6px;
+}
+
+textarea,input{
+width:100%;
+padding:10px;
+border:1px solid #ccc;
+border-radius:6px;
+}
+
+.analyze-btn{
+background:#38bdf8;
+color:white;
+border:none;
+padding:12px 20px;
+border-radius:6px;
+cursor:pointer;
+}
+
+</style>
+
+<div class="resume-wrapper">
+
+<h2>📄 AI Resume Analyzer</h2>
+
+<form method="POST" enctype="multipart/form-data">
+
+{% csrf_token %}
+
+<div class="form-group">
+<label>Upload Resume (PDF)</label>
+<input type="file" name="resume" required>
+</div>
+
+<div class="form-group">
+<label>Target Company</label>
+<input type="text" name="company" placeholder="Google, TCS, Infosys..." required>
+</div>
+
+<div class="form-group">
+<label>Job Description</label>
+<textarea name="job_description" rows="6" placeholder="Paste job description here..." required></textarea>
+</div>
+
+<button type="submit" class="analyze-btn">
+Analyze Resume
+</button>
+
+</form>
+
+</div>
+
+{% endblock %}

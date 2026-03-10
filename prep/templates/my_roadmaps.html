@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+.container {
+    max-width: 1000px;
+    margin: 60px auto;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.back-btn {
+    padding: 8px 16px;
+    background: #6366f1;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.back-btn:hover {
+    background: #4f46e5;
+}
+
+.roadmap-card {
+    background: white;
+    padding: 25px;
+    border-radius: 14px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    transition: 0.3s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.roadmap-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+}
+
+.roadmap-info {
+    cursor: pointer;
+}
+
+.roadmap-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.roadmap-date {
+    font-size: 13px;
+    color: gray;
+}
+
+.delete-btn {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: 0.3s;
+}
+
+.delete-btn:hover {
+    background: #b02a37;
+}
+</style>
+
+<div class="container">
+
+    <div class="page-header">
+        <h2>📘 My Roadmap History</h2>
+        <a href="{% url 'prep:roadmap_history_generate' %}" class="back-btn">⬅ Back</a>
+    </div>
+
+    {% if roadmaps %}
+        {% for roadmap in roadmaps %}
+            <div class="roadmap-card">
+
+                <!-- Clickable Info Section -->
+                <div class="roadmap-info"
+                     onclick="window.location.href='{% url 'prep:roadmap_detail' roadmap.id %}'">
+                    <div class="roadmap-title">
+                        {{ roadmap.domain }} - {{ roadmap.company }}
+                    </div>
+                    <div class="roadmap-date">
+                        Created on {{ roadmap.created_at|date:"M d, Y - h:i A" }}
+                    </div>
+                </div>
+
+                <!-- Delete Button -->
+                <form method="POST" action="{% url 'prep:delete_roadmap' roadmap.id %}">
+                    {% csrf_token %}
+                    <button type="submit"
+                            class="delete-btn"
+                            onclick="return confirm('Are you sure you want to delete this roadmap?');">
+                        Delete
+                    </button>
+                </form>
+
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No roadmaps generated yet.</p>
+    {% endif %}
+
+</div>
+
+{% endblock %}

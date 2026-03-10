@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+    .auth-container {
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 30px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #2c3e50;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    label {
+        margin-bottom: 5px;
+        font-weight: 500;
+        color: #333;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 16px;
+    }
+
+    button {
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        background-color: #2d6cdf;
+        color: white;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background-color: #1f57c3;
+    }
+
+    .error {
+        color: red;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .login-link {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .login-link a {
+        color: #2d6cdf;
+        text-decoration: none;
+    }
+
+    .login-link a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="auth-container">
+
+    <h2>Register</h2>
+
+    {% include 'includes/errors.html' %}
+
+    <form method="post">
+        {% csrf_token %}
+
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username"
+               value="{{ form.username.value|default:'' }}" required>
+
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email"
+               value="{{ form.email.value|default:'' }}" required>
+
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" required>
+
+        <label for="password_confirm">Confirm Password</label>
+        <input type="password" name="password_confirm" id="password_confirm" required>
+
+        <button type="submit">Register</button>
+    </form>
+
+    <div class="login-link">
+        Already have an account?
+        <a href="{% url 'prep:login' %}">Login</a>
+    </div>
+
+</div>
+
+{% endblock content %}

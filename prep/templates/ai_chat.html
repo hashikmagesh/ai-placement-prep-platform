@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    .chat-container {
+        max-width: 900px;
+        margin: 30px auto;
+        height: 80vh;
+        display: flex;
+        flex-direction: column;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        overflow: hidden;
+    }
+
+    .chat-header {
+        background: #1f2e44;
+        color: white;
+        padding: 15px 20px;
+        font-weight: 600;
+        font-size: 18px;
+    }
+
+    .chat-body {
+        flex: 1;
+        padding: 20px;
+        overflow-y: auto;
+        background: #f7f9fc;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .message {
+        margin-bottom: 15px;
+        display: flex;
+    }
+
+    .message.user {
+        justify-content: flex-end;
+    }
+
+    .bubble {
+        max-width: 70%;
+        padding: 12px 16px;
+        border-radius: 16px;
+        font-size: 15px;
+        line-height: 1.6;
+        white-space: pre-wrap;
+    }
+
+    .user .bubble {
+        background: #2d6cdf;
+        color: white;
+        border-bottom-right-radius: 5px;
+    }
+
+    .ai .bubble {
+        background: #e4e6eb;
+        color: #333;
+        border-bottom-left-radius: 5px;
+    }
+
+    .chat-footer {
+        border-top: 1px solid #ddd;
+        padding: 12px;
+        display: flex;
+        gap: 10px;
+        background: white;
+    }
+
+    .chat-footer textarea {
+        flex: 1;
+        resize: none;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        height: 45px;
+        font-size: 14px;
+    }
+
+    .chat-footer button {
+        background: #2d6cdf;
+        color: white;
+        border: none;
+        padding: 10px 18px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .chat-footer button:hover {
+        background: #1f57c3;
+    }
+
+    .loading {
+        font-size: 14px;
+        color: gray;
+        margin-top: 5px;
+    }
+</style>
+
+<div class="chat-container">
+
+    <div class="chat-header">
+        🤖 AI Placement Assistant
+    </div>
+
+    <div class="chat-body" id="chatBody">
+
+        {% if user_message %}
+        <div class="message user">
+            <div class="bubble">
+                {{ user_message }}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if response %}
+        <div class="message ai">
+            <div class="bubble">
+                {{ response }}
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+
+    <form method="POST" class="chat-footer" onsubmit="showLoading()">
+        {% csrf_token %}
+        <textarea name="message"
+                  id="messageInput"
+                  placeholder="Message AI Placement Assistant..."
+                  required></textarea>
+        <button type="submit">Send</button>
+    </form>
+
+</div>
+
+<script>
+    // Auto scroll to bottom
+    const chatBody = document.getElementById("chatBody");
+    chatBody.scrollTop = chatBody.scrollHeight;
+
+    // Enter to send
+    const textarea = document.getElementById("messageInput");
+    textarea.addEventListener("keypress", function(e) {
+        if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            this.form.submit();
+        }
+    });
+
+    function showLoading() {
+        const chat = document.getElementById("chatBody");
+
+        const loadingDiv = document.createElement("div");
+        loadingDiv.className = "message ai";
+        loadingDiv.innerHTML = '<div class="bubble">Typing...</div>';
+
+        chat.appendChild(loadingDiv);
+        chat.scrollTop = chat.scrollHeight;
+    }
+</script>
+
+{% endblock %}

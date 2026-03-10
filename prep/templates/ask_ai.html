@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+
+.practice-wrapper{
+    max-width:1200px;
+    margin:60px auto;
+    padding:0 20px;
+}
+
+.practice-header{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.practice-header h1{
+    font-size:36px;
+    font-weight:700;
+    color:#1f2e44;
+}
+
+.practice-header p{
+    color:#6c757d;
+    font-size:16px;
+    margin-top:10px;
+}
+
+/* GRID */
+
+.practice-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:30px;
+    align-items:stretch;
+}
+
+/* CARD */
+
+.practice-card{
+    background:#ffffff;
+    border-radius:16px;
+    padding:35px 30px;
+    text-decoration:none;
+    color:#1f2e44;
+    box-shadow:0 10px 25px rgba(0,0,0,0.06);
+    transition:all .3s ease;
+    border:1px solid #f0f0f0;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    text-align:center;
+}
+
+.practice-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 15px 35px rgba(0,0,0,0.12);
+    border-color:#2d6cdf;
+}
+
+/* ICON */
+
+.practice-icon{
+    font-size:48px;
+    margin-bottom:18px;
+}
+
+/* TITLE */
+
+.practice-card h3{
+    font-size:20px;
+    font-weight:600;
+    margin-bottom:12px;
+}
+
+/* DESCRIPTION */
+
+.practice-card p{
+    font-size:14px;
+    color:#555;
+    line-height:1.6;
+    min-height:60px;
+}
+
+/* BUTTON */
+
+.practice-btn{
+    margin-top:20px;
+    display:inline-block;
+    font-size:14px;
+    color:#2d6cdf;
+    font-weight:600;
+}
+
+.practice-card:hover .practice-btn{
+    text-decoration:underline;
+}
+
+</style>
+
+
+<div class="practice-wrapper">
+
+    <div class="practice-header">
+        <h1>📘 AI Center</h1>
+        <p>Enhance your placement preparation with structured modules and AI assistance.</p>
+    </div>
+
+    <div class="practice-grid">
+
+        <a href="{% url 'prep:practice' %}" class="practice-card">
+            <div class="practice-icon">🧠</div>
+            <h3>Aptitude Practice</h3>
+            <p>Improve logical reasoning, quantitative aptitude and problem-solving skills.</p>
+            <span class="practice-btn">Start Practicing →</span>
+        </a>
+
+        <a href="{% url 'prep:ai_chat' %}" class="practice-card">
+            <div class="practice-icon">🤖</div>
+            <h3>AI Coding Assistant</h3>
+            <p>Get coding questions, explanations, and company-specific problem guidance.</p>
+            <span class="practice-btn">Chat with AI →</span>
+        </a>
+
+        <a href="{% url 'prep:roadmap_history_generate' %}" class="practice-card">
+            <div class="practice-icon">🎯</div>
+            <h3>Preparation Roadmap</h3>
+            <p>Follow a structured roadmap tailored to your selected domain and target company.</p>
+            <span class="practice-btn">View Roadmap →</span>
+        </a>
+
+        <a href="{% url 'prep:resume_analyzer' %}" class="practice-card">
+            <div class="practice-icon">📄</div>
+            <h3>Resume Analyzer</h3>
+            <p>Analyze your resume against job descriptions and get ATS score with improvements.</p>
+            <span class="practice-btn">Analyze Resume →</span>
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

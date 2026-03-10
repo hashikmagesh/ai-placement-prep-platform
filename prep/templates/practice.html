@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+.practice-container {
+    max-width: 1000px;
+    margin: 60px auto;
+    text-align: center;
+}
+
+.practice-title {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.practice-subtitle {
+    color: #666;
+    margin-bottom: 40px;
+}
+
+.practice-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.practice-card {
+    background: white;
+    padding: 40px 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    text-decoration: none;
+    color: black;
+    transition: all 0.3s ease;
+}
+
+.practice-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+.practice-icon {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.practice-card h3 {
+    margin-bottom: 10px;
+}
+
+.practice-card p {
+    color: #555;
+    font-size: 14px;
+}
+</style>
+
+<div class="practice-container">
+
+    <div class="practice-title">
+        Practice Dashboard
+    </div>
+
+    <div class="practice-subtitle">
+        Sharpen your skills with AI-powered questions tailored to your selected domain & company.
+    </div>
+
+    <div class="practice-grid">
+
+        <a href="{% url 'prep:aptitude' %}" class="practice-card">
+            <div class="practice-icon">🧠</div>
+            <h3>Aptitude</h3>
+            <p>Practice logical reasoning, quantitative ability and analytical skills.</p>
+        </a>
+
+        <a href="{% url 'prep:coding' %}" class="practice-card">
+            <div class="practice-icon">💻</div>
+            <h3>Coding</h3>
+            <p>Solve company-specific coding problems with direct LeetCode links.</p>
+        </a>
+
+        <a href="{% url 'prep:interview' %}" class="practice-card">
+            <div class="practice-icon">🎤</div>
+            <h3>Interview</h3>
+            <p>Prepare for technical and HR interviews with structured Q&A.</p>
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

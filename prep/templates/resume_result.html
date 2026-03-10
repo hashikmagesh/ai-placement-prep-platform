@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+
+/* AI FEEDBACK SECTION */
+
+.ai-section{
+    width:100%;
+    background:#0f172a;
+    padding:60px 20px;
+    margin-top:60px;
+}
+
+.ai-content{
+    max-width:1100px;
+    margin:auto;
+    color:white;
+}
+
+.ai-content h2{
+    margin-bottom:25px;
+    font-size:28px;
+}
+
+.ai-box{
+    background:#020617;
+    padding:30px;
+    border-radius:10px;
+    white-space:pre-line;
+    line-height:1.7;
+    font-size:15px;
+    border:1px solid #1e293b;
+}
+
+</style>
+
+
+<div class="ai-section">
+
+    <div class="ai-content">
+
+        <h2>🤖 AI Resume Suggestions</h2>
+
+        <div class="ai-box">
+            {{ analysis }}
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

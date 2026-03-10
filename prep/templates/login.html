@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+    .login-container {
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 30px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .back-link {
+        display: inline-flex;
+        align-items: center;
+        text-decoration: none;
+        color: #2d6cdf;
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+
+    .back-link span {
+        font-size: 20px;
+        margin-right: 6px;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #2c3e50;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    label {
+        margin-bottom: 5px;
+        font-weight: 500;
+        color: #333;
+    }
+
+    input[type="text"], input[type="password"] {
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 16px;
+    }
+
+    button {
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        background-color: #2d6cdf;
+        color: white;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background-color: #1f57c3;
+    }
+
+    .error {
+        color: red;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .forgot-link {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .forgot-link a {
+        color: #2d6cdf;
+        text-decoration: none;
+    }
+
+    .forgot-link a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="login-container">
+
+    <h2>Login</h2>
+
+    {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" required>
+
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" required>
+
+        <button type="submit">Login</button>
+    </form>
+
+    <div class="forgot-link">
+        <a href="{% url "prep:forgot_password" %}">Forgot Password?</a>
+    </div>
+</div>
+
+{% endblock content %}
