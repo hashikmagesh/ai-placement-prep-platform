@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +27,7 @@ SECRET_KEY = 'django-insecure-xtu1apevt+kgsh9jtbr@ilf%dg+!n+6ep=^mx-zs38g0ip4t^(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -123,10 +125,9 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS =[
     "/prep/static/prep"
 ]
-
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 # Api
-import os
-from dotenv import load_dotenv
+
 
 load_dotenv()
 
