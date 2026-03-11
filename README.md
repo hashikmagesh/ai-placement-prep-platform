@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🚀 AI Placement Preparation Platform
 
 An **AI-powered placement preparation platform** built with **Django** that helps students prepare for technical interviews, coding rounds, and aptitude tests using AI assistance.
@@ -193,3 +194,6 @@ https://github.com/hashikmagesh
 ---
 
 ⭐ If you like this project, consider giving it a **star**!
+=======
+# placement_prep
+>>>>>>> 56354f7507803831802e47a380a462297ab67c16
